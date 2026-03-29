@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "Spores",
+    "slug": "spores",
+    "scheme": "spores",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      "expo-notifications",
+      "expo-font"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.spores.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Spores uses location trends to support passive wellness signals when you consent.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Spores uses location trends to support passive wellness signals when you consent."
+      }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "spores-local-dev"
+      }
+    }
+  }
+}
