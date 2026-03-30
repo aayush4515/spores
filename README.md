@@ -5,8 +5,8 @@ Spores is a consent-based mental wellness support app for trusted circles.
 Each private support space is called a **Spore**. Inside a Spore, friends can check in on themselves, notice patterns, send support, participate in small challenges, talk together, and use AI-assisted listening tools in a way that feels gentle rather than invasive.
 
 ## Developers
-[Aayush Acharya](https://github.com/aayush4515) (SWE)
-[Anvesh Sapkota](https://github.com/anvesh-xd) (Product & UI)
+- [Aayush Acharya](https://github.com/aayush4515) (SWE)
+- [Anvesh Sapkota](https://github.com/anvesh-xd) (Product & UI)
 
 ## Problem
 
