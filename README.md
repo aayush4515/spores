@@ -1,5 +1,5 @@
 # Spores
-by Aayush & Anvesh
+### by Aayush & Anvesh
 
 Spores is a consent-based mental wellness support app for trusted circles.
 
