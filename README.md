@@ -242,11 +242,6 @@ This is useful for demos because it can:
 - Steps/activity architecture exists, but native health integrations may still need final device-specific work
 - Push delivery is best tested on a physical iPhone, not only the simulator
 
-## Team
-
-- Aayush Acharya
-- Anvesh Shrestha
-
 ## Notes
 
 This repo is the UI and product source of truth for the new Spores app. The goal is to preserve the mobile visual language while wiring it to real backend logic, richer care features, and demo-ready flows.
