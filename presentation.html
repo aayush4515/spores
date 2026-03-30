@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Spore — Hackathon Pitch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+<style>
+:root {
+  --bg: #f5f4f0;
+  --bg-elevated: #fdfcfa;
+  --bg-layer: #ebe8e1;
+  --text: #2c2c28;
+  --text-soft: #5c5a54;
+  --muted: #7a7870;
+  --primary: #5c7d5f;
+  --primary-soft: #e3ebe4;
+  --primary-hover: #4d6b50;
+  --secondary: #6b87a2;
+  --secondary-soft: #e4ecf4;
+  --accent-amber: #c4a574;
+  --accent-amber-soft: #f5ebe0;
+  --accent-rose: #b87a7a;
+  --accent-rose-soft: #f3e8e8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5vh 8vw;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(40px);
+  transition: opacity 0.5s cubic-bezier(0.25,0.46,0.45,0.94),
+              transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+
+.slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+}
+
+.slide.exiting {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+/* ── Nav ── */
+.slide-nav {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 100;
+}
+
+.slide-nav button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: var(--bg-layer);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.slide-nav button.active {
+  background: var(--primary);
+  transform: scale(1.3);
+}
+
+.slide-counter {
+  position: fixed;
+  bottom: 2.5rem;
+  right: 3rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 500;
+  z-index: 100;
+}
+
+.slide-hint {
+  position: fixed;
+  bottom: 2.5rem;
+  left: 3rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  z-index: 100;
+}
+
+/* ── Slide 1: Title ── */
+.slide-title { align-items: center; text-align: center; gap: 1.2rem; }
+
+.brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px; height: 64px;
+  border-radius: 18px;
+  background: var(--primary);
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.brand-mark .material-symbols-outlined {
+  font-size: 2rem;
+  font-variation-settings: 'FILL' 1;
+}
+
+.slide-title h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  color: var(--primary-hover);
+  line-height: 1.05;
+}
+
+.slide-title .tagline {
+  font-size: clamp(1.2rem, 2.2vw, 1.65rem);
+  font-weight: 300;
+  color: var(--text-soft);
+  letter-spacing: -0.02em;
+  max-width: 600px;
+}
+
+.slide-title .one-liner {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-top: 0.5rem;
+}
+
+.slide-title .team-line {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* ── Slide 2: Problem ── */
+.slide-problem { gap: 2.5rem; }
+
+.slide-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.slide-problem h2 {
+  font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  color: var(--text);
+  line-height: 1.1;
+}
+
+.problem-points {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 750px;
+}
+
+.problem-point {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  font-size: 1.15rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+
+.problem-point .material-symbols-outlined {
+  color: var(--accent-rose);
+  font-size: 1.3rem;
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.problem-gap {
+  font-size: 1.15rem;
+  color: var(--text);
+  font-weight: 500;
+  padding: 1.1rem 1.4rem;
+  background: var(--primary-soft);
+  border-radius: 14px;
+  max-width: 700px;
+  line-height: 1.5;
+  border-left: 4px solid var(--primary);
+}
+
+/* ── Slide 3: Solution ── */
+.slide-solution { gap: 2.2rem; }
+
+.slide-solution h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.solution-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 950px;
+}
+
+.solution-card {
+  background: var(--bg-elevated);
+  border-radius: 18px;
+  padding: 1.5rem 1.4rem 1.6rem;
+  box-shadow: 0 2px 16px rgba(44,44,40,0.05);
+  border: 1px solid rgba(44,44,40,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.solution-card .card-icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.solution-card .card-icon.green { background: var(--primary-soft); color: var(--primary-hover); }
+.solution-card .card-icon.blue { background: var(--secondary-soft); color: var(--secondary); }
+.solution-card .card-icon.amber { background: var(--accent-amber-soft); color: var(--accent-amber); }
+
+.solution-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.solution-card p {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
+.solution-bottom {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--primary-hover);
+}
+
+/* ── Slide 4: Tech + UX ── */
+.slide-tech { gap: 2rem; }
+
+.slide-tech h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.tech-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 950px;
+}
+
+.tech-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.tech-col h3 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+}
+
+.tech-col h3.green { color: var(--primary); }
+.tech-col h3.blue { color: var(--secondary); }
+
+.tech-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  font-size: 0.92rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+}
+
+.tech-item .material-symbols-outlined {
+  font-size: 1.1rem;
+  margin-top: 0.1rem;
+  flex-shrink: 0;
+}
+
+.tech-item .material-symbols-outlined.green { color: var(--primary); }
+.tech-item .material-symbols-outlined.blue { color: var(--secondary); }
+
+.tech-stack {
+  margin-top: 0.75rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+/* ── Slide 5: Business + Roadmap ── */
+.slide-business { gap: 1.8rem; }
+
+.slide-business h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.market-line {
+  font-size: 1rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+  max-width: 750px;
+}
+
+.market-line strong { color: var(--text); font-weight: 600; }
+
+.roadmap-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  max-width: 850px;
+}
+
+.roadmap-col {
+  background: var(--bg-elevated);
+  border-radius: 18px;
+  padding: 1.35rem 1.4rem;
+  box-shadow: 0 2px 16px rgba(44,44,40,0.04);
+  border: 1px solid rgba(44,44,40,0.05);
+}
+
+.roadmap-col h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.roadmap-col h3 .badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+
+.badge-v1 { background: var(--primary-soft); color: var(--primary-hover); }
+.badge-v2 { background: var(--secondary-soft); color: var(--secondary); }
+
+.roadmap-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.roadmap-list li {
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  line-height: 1.45;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.roadmap-list li::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 0.5rem;
+}
+
+.roadmap-col.v1 .roadmap-list li::before { background: var(--primary); }
+.roadmap-col.v2 .roadmap-list li::before { background: var(--secondary); }
+
+/* ── Slide 6: Close ── */
+.slide-close {
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.slide-close h2 {
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--text-soft);
+  line-height: 1.3;
+  max-width: 650px;
+  font-style: italic;
+}
+
+.slide-close .demo-cue {
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.slide-close .demo-cue .material-symbols-outlined {
+  font-size: 1.3rem;
+}
+
+.slide-close .team-info {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-top: 1.5rem;
+  letter-spacing: 0.04em;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide.active .anim {
+  animation: fadeUp 0.5s cubic-bezier(0.25,0.46,0.45,0.94) both;
+}
+
+.slide.active .anim-d1 { animation-delay: 0.08s; }
+.slide.active .anim-d2 { animation-delay: 0.16s; }
+.slide.active .anim-d3 { animation-delay: 0.24s; }
+.slide.active .anim-d4 { animation-delay: 0.32s; }
+.slide.active .anim-d5 { animation-delay: 0.4s; }
+.slide.active .anim-d6 { animation-delay: 0.48s; }
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .solution-cols { grid-template-columns: 1fr; }
+  .tech-split { grid-template-columns: 1fr; }
+  .roadmap-cols { grid-template-columns: 1fr; }
+  .slide { padding: 4vh 5vw; }
+}
+</style>
+</head>
+<body>
+
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1: TITLE -->
+  <div class="slide slide-title active" data-index="0">
+    <div class="brand-mark anim anim-d1">
+      <span class="material-symbols-outlined">eco</span>
+    </div>
+    <h1 class="anim anim-d2">Spore</h1>
+    <p class="tagline anim anim-d3">Small circles. Steady support.</p>
+    <p class="one-liner anim anim-d4">A private, calm companion for the people you trust.</p>
+    <p class="team-line anim anim-d5">Team Name · Hackathon 2026</p>
+  </div>
+
+  <!-- SLIDE 2: PROBLEM -->
+  <div class="slide slide-problem" data-index="1">
+    <span class="slide-label anim anim-d1">The problem</span>
+    <h2 class="anim anim-d2">We're bad at noticing.</h2>
+    <div class="problem-points">
+      <div class="problem-point anim anim-d3">
+        <span class="material-symbols-outlined">group_off</span>
+        <span><strong>60%</strong> of people wouldn't know if a close friend was struggling</span>
+      </div>
+      <div class="problem-point anim anim-d4">
+        <span class="material-symbols-outlined">volume_up</span>
+        <span>Group chats are noisy. Social media is public. Therapy apps are clinical.</span>
+      </div>
+      <div class="problem-point anim anim-d5">
+        <span class="material-symbols-outlined">search_off</span>
+        <span>No tool exists for <strong>small, private circles</strong> to gently care for each other</span>
+      </div>
+    </div>
+    <div class="problem-gap anim anim-d6">
+      The gap: intelligent, calm support between "I'm fine" and "I need help"
+    </div>
+  </div>
+
+  <!-- SLIDE 3: SOLUTION -->
+  <div class="slide slide-solution" data-index="2">
+    <span class="slide-label anim anim-d1">Our solution</span>
+    <h2 class="anim anim-d2">What Spore does</h2>
+    <div class="solution-cols">
+      <div class="solution-card anim anim-d3">
+        <div class="card-icon green">
+          <span class="material-symbols-outlined">mood</span>
+        </div>
+        <h3>Gentle check-ins</h3>
+        <p>Soft mood signals — Good, Okay, Not great. Not forced daily logs or journals.</p>
+      </div>
+      <div class="solution-card anim anim-d4">
+        <div class="card-icon blue">
+          <span class="material-symbols-outlined">monitoring</span>
+        </div>
+        <h3>Activity intelligence</h3>
+        <p>Behavioral patterns surface quiet struggles. Privacy-safe: "inactive today" — never raw data.</p>
+      </div>
+      <div class="solution-card anim anim-d5">
+        <div class="card-icon amber">
+          <span class="material-symbols-outlined">auto_awesome</span>
+        </div>
+        <h3>Smart prompts</h3>
+        <p>"Neel has been inactive and missed check-ins" — with one-tap care actions.</p>
+      </div>
+    </div>
+    <p class="solution-bottom anim anim-d6">Spore notices what group chats can't.</p>
+  </div>
+
+  <!-- SLIDE 4: TECH + UX -->
+  <div class="slide slide-tech" data-index="3">
+    <span class="slide-label anim anim-d1">Under the hood</span>
+    <h2 class="anim anim-d2">Tech + Design</h2>
+    <div class="tech-split">
+      <div class="tech-col anim anim-d3">
+        <h3 class="green">Technical architecture</h3>
+        <div class="tech-item">
+          <span class="material-symbols-outlined green">data_object</span>
+          <span>5-factor health scoring — check-in × activity × signals × recency × engagement</span>
+        </div>
+        <div class="tech-item">
+          <span class="material-symbols-outlined green">trending_up</span>
+          <span>4-tier support severity with automatic activity-based escalation</span>
+        </div>
+        <div class="tech-item">
+          <span class="material-symbols-outlined green">shield</span>
+          <span>Privacy layer — all raw data becomes qualitative labels only</span>
+        </div>
+        <div class="tech-stack">React 18 · Vite · Context API · Hand-crafted CSS design system</div>
+      </div>
+      <div class="tech-col anim anim-d4">
+        <h3 class="blue">UX principles</h3>
+        <div class="tech-item">
+          <span class="material-symbols-outlined blue">spa</span>
+          <span><strong>Calm > Urgent</strong> — no red alerts, no notification counts</span>
+        </div>
+        <div class="tech-item">
+          <span class="material-symbols-outlined blue">format_quote</span>
+          <span><strong>Qualitative > Quantitative</strong> — "Growing warmth" not "50/100"</span>
+        </div>
+        <div class="tech-item">
+          <span class="material-symbols-outlined blue">volunteer_activism</span>
+          <span><strong>Optional > Mandatory</strong> — every prompt says "at your pace"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: BUSINESS + ROADMAP -->
+  <div class="slide slide-business" data-index="4">
+    <span class="slide-label anim anim-d1">Where this goes</span>
+    <h2 class="anim anim-d2">Impact + Roadmap</h2>
+    <p class="market-line anim anim-d3">
+      <strong>Target:</strong> Families with aging parents, close friend groups, caregiving circles, university wellness.
+      <br /><strong>Gap:</strong> Nothing sits between Life360 (surveillance) and group chats (chaos).
+    </p>
+    <div class="roadmap-cols">
+      <div class="roadmap-col v1 anim anim-d4">
+        <h3>Go to market <span class="badge badge-v1">V1</span></h3>
+        <ul class="roadmap-list">
+          <li>End-to-end encrypted cloud sync</li>
+          <li>Push notifications for support prompts</li>
+          <li>Wearable / phone sensor integration (with consent)</li>
+          <li>Onboarding + invite flow</li>
+        </ul>
+      </div>
+      <div class="roadmap-col v2 anim anim-d5">
+        <h3>Future vision <span class="badge badge-v2">V2</span></h3>
+        <ul class="roadmap-list">
+          <li>AI-personalized prompt timing and tone</li>
+          <li>Spore health trends over weeks</li>
+          <li>Crisis escalation to emergency contacts</li>
+          <li>Community templates (grief, elder care, new parents)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: CLOSE -->
+  <div class="slide slide-close" data-index="5">
+    <div class="brand-mark anim anim-d1">
+      <span class="material-symbols-outlined">eco</span>
+    </div>
+    <h2 class="anim anim-d2">"Not every app needs to be loud to be useful."</h2>
+    <div class="demo-cue anim anim-d3">
+      <span class="material-symbols-outlined">play_circle</span>
+      Let us show you.
+    </div>
+    <p class="team-info anim anim-d4">Team Name · Contact · github.com/your-repo</p>
+  </div>
+
+</div>
+
+<div class="slide-nav" id="slideNav"></div>
+<div class="slide-counter" id="slideCounter"></div>
+<div class="slide-hint">← → or click to navigate</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const nav = document.getElementById('slideNav');
+const counter = document.getElementById('slideCounter');
+let current = 0;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('button');
+  dot.addEventListener('click', () => goTo(i));
+  nav.appendChild(dot);
+});
+
+function goTo(index) {
+  if (index < 0 || index >= slides.length || index === current) return;
+  slides[current].classList.remove('active');
+  slides[current].classList.add('exiting');
+  setTimeout(() => slides[current === index ? current : (current)].classList.remove('exiting'), 500);
+  const prev = current;
+  current = index;
+  slides[current].classList.add('active');
+  setTimeout(() => slides[prev].classList.remove('exiting'), 500);
+  updateNav();
+}
+
+function updateNav() {
+  nav.querySelectorAll('button').forEach((btn, i) => {
+    btn.classList.toggle('active', i === current);
+  });
+  counter.textContent = `${current + 1} / ${slides.length}`;
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); goTo(current + 1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+  if (e.key === 'Home') goTo(0);
+  if (e.key === 'End') goTo(slides.length - 1);
+});
+
+updateNav();
+</script>
+</body>
+</html>
